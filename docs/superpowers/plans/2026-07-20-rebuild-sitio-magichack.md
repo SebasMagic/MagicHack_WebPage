@@ -500,6 +500,8 @@ Las piezas que varias páginas comparten. Se construyen una vez, antes de las p�
 
 - [ ] **Step 1: Escribir los tests E2E de los componentes**
 
+`playwright.config.ts` ya existe desde Task 1 — **modificarlo**, no crearlo. Añadirle el bloque `webServer` que se muestra abajo, conservando lo que ya tiene.
+
 Create `tests/e2e/componentes.spec.ts`:
 
 ```typescript
@@ -567,7 +569,7 @@ test.describe('Presupuesto de JavaScript', () => {
 });
 ```
 
-Create `playwright.config.ts`:
+Modify `playwright.config.ts` (creado en Task 1) para que quede así:
 
 ```typescript
 import { defineConfig } from '@playwright/test';
@@ -755,6 +757,10 @@ o si el JS de cliente supera 15 KB."
 - Produces: patrón de sección que las tareas 5–7 replican — cada sección es un `.astro` autónomo con su `<style>` scoped, sin props salvo que el contenido se repita
 
 - [ ] **Step 1: Escribir el test de regresión visual**
+
+**Qué prueba este test y qué no.** No compara contra `baseline/` (el sitio Webflow): dos implementaciones distintas del mismo diseño nunca coinciden a nivel de píxel, y un test así fallaría siempre y se acabaría ignorando. La paridad con Webflow se verifica **a ojo**, en el Step 5, y ese es el gate real.
+
+Lo que sí hace: fija un snapshot del sitio nuevo y falla si un cambio posterior lo rompe. Es un guardia de regresión hacia adelante, no una prueba de equivalencia con Webflow.
 
 Create `tests/visual/paginas.spec.ts`:
 
