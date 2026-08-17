@@ -110,27 +110,40 @@
     var nodes = document.querySelectorAll('[data-count-to]');
     if (!nodes.length) return;
 
+    function label(el, value) {
+      return (el.getAttribute('data-count-prefix') || '') + value + (el.getAttribute('data-count-suffix') || '');
+    }
+
     function run(el) {
       var target = parseFloat(el.getAttribute('data-count-to'));
       if (isNaN(target)) return;
-      var suffix = el.getAttribute('data-count-suffix') || '';
-      var duration = 1100;
+      // Los numeros chicos (4 paises) necesitan menos tiempo que 65, o el
+      // conteo se ve lento y vacio.
+      var duration = target <= 10 ? 700 : 1300;
       var start = null;
+
+      el.classList.add('is-counting');
 
       function frame(now) {
         if (start === null) start = now;
         var p = Math.min(1, (now - start) / duration);
         // easeOutCubic
         var eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.round(target * eased) + suffix;
-        if (p < 1) window.requestAnimationFrame(frame);
+        el.textContent = label(el, Math.round(target * eased));
+        if (p < 1) {
+          window.requestAnimationFrame(frame);
+        } else {
+          el.classList.remove('is-counting');
+          el.classList.add('has-counted');
+        }
       }
       window.requestAnimationFrame(frame);
     }
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
       Array.prototype.forEach.call(nodes, function (el) {
-        el.textContent = el.getAttribute('data-count-to') + (el.getAttribute('data-count-suffix') || '');
+        el.textContent = label(el, el.getAttribute('data-count-to'));
+        el.classList.add('has-counted');
       });
       return;
     }

@@ -12,6 +12,44 @@
 .section_company-hero {
   background-color: var(--_primitives---colors--spring-green-darkest);
   color: var(--_primitives---colors--white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Marca de agua con el icono de MagicHack. El PNG viene verde sobre fondo
+   blanco: grayscale+invert lo deja claro sobre negro y screen elimina ese
+   negro, asi queda solo la silueta. El mask lo disuelve hacia los bordes.
+   Va como hijo directo de la seccion (sin ancestros con transform) porque
+   un transform aislaria el mix-blend-mode y volveria a aparecer la caja. */
+.company-hero_mark {
+  z-index: 0;
+  background-image: url("../images/webclip.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: grayscale(1) invert(1);
+  mix-blend-mode: screen;
+  opacity: 0;
+  width: 30rem;
+  height: 30rem;
+  position: absolute;
+  top: 50%;
+  right: -6rem;
+  transform: translateY(-50%);
+  -webkit-mask-image: radial-gradient(closest-side, #000 25%, #0006 55%, #0000 78%);
+  mask-image: radial-gradient(closest-side, #000 25%, #0006 55%, #0000 78%);
+  animation: markFadeIn 1.6s cubic-bezier(.22, .61, .36, 1) .25s forwards;
+  pointer-events: none;
+}
+
+@keyframes markFadeIn {
+  from { opacity: 0; transform: translateY(-50%) scale(1.08); }
+  to   { opacity: .14; transform: translateY(-50%) scale(1); }
+}
+
+.section_company-hero .padding-global {
+  z-index: 1;
+  position: relative;
 }
 
 .section_company-pillars .padding-section-large,
@@ -58,35 +96,86 @@
   font-size: 1.0625rem;
 }
 
+/* Numero arriba, texto debajo y alineados a la misma linea base: antes iban
+   uno al lado del otro y las etiquetas de dos lineas descuadraban la fila. */
 .company-hero_stats {
-  grid-column-gap: 3rem;
-  grid-row-gap: 1rem;
+  grid-column-gap: 0rem;
+  grid-row-gap: 1.5rem;
   border-top: 1px solid var(--_primitives---opacity--white-20);
   grid-template-columns: repeat(3, 1fr);
-  margin-top: 1.25rem;
-  padding-top: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
   display: grid;
 }
 
 .stat_item {
-  grid-column-gap: .75rem;
-  align-items: baseline;
-  display: flex;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  position: relative;
+}
+
+.stat_item:first-child {
+  padding-left: 0;
+}
+
+.stat_item:last-child {
+  padding-right: 0;
+}
+
+/* Filete entre columnas, no alrededor: separa sin encajonar. */
+.stat_item + .stat_item:before {
+  content: "";
+  background-color: var(--_primitives---opacity--white-15);
+  width: 1px;
+  position: absolute;
+  top: .25rem;
+  bottom: .25rem;
+  left: 0;
 }
 
 .stat_value {
   color: var(--_primitives---colors--spring-green);
   font-family: var(--_typography---font-styles--heading);
-  font-size: 2rem;
+  font-size: 3.25rem;
   font-weight: 700;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Mientras cuenta, el numero brilla; al terminar, se asienta. */
+.stat_value [data-count-to] {
+  transition: text-shadow .5s;
+  display: inline-block;
+}
+
+.stat_value [data-count-to].is-counting {
+  text-shadow: 0 0 24px rgba(0, 255, 102, .55);
 }
 
 .stat_label {
-  color: rgba(255, 255, 255, .7);
-  max-width: 20ch;
-  font-size: .875rem;
+  color: rgba(255, 255, 255, .78);
+  max-width: 24ch;
+  margin-top: .625rem;
+  font-size: .9375rem;
   line-height: 1.35;
+}
+
+.stat_note {
+  grid-column-gap: .5rem;
+  grid-row-gap: .375rem;
+  flex-wrap: wrap;
+  margin-top: .75rem;
+  display: flex;
+}
+
+.stat_note span {
+  color: rgba(255, 255, 255, .72);
+  border: 1px solid var(--_primitives---opacity--white-20);
+  border-radius: 99px;
+  padding: .1875rem .5625rem;
+  font-size: .6875rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
 }
 
 /* Pilares: bloque oscuro, mismo charcoal que Method */
@@ -564,6 +653,31 @@
 
   .company-hero_stats {
     grid-template-columns: 1fr;
+  }
+
+  .stat_item,
+  .stat_item:first-child,
+  .stat_item:last-child {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* En una sola columna el filete pasa de vertical a horizontal. */
+  .stat_item + .stat_item:before {
+    width: 100%;
+    height: 1px;
+    top: -.75rem;
+    bottom: auto;
+  }
+
+  .stat_value {
+    font-size: 2.75rem;
+  }
+
+  .company-hero_mark {
+    width: 20rem;
+    height: 20rem;
+    right: -7rem;
   }
 }
 
