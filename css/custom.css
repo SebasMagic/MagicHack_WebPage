@@ -708,6 +708,33 @@
   transform: scale(1.04); /* evita bordes claros al desenfocar */
 }
 
+/* Capa 1b: el video, encima de la foto. La foto queda de respaldo: se ve
+   mientras el video carga, y se queda si el navegador bloquea el autoplay
+   o si el sistema pide menos movimiento. */
+.section_header36.is-hero-media .header36_bg-video {
+  z-index: 0;
+  object-fit: cover;
+  object-position: 60% 34%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .8s ease;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+.section_header36.is-hero-media .header36_bg-video.is-ready {
+  opacity: 1;
+}
+
+@media screen and (max-width: 991px) {
+  .section_header36.is-hero-media .header36_bg-video {
+    object-position: 50% 28%;
+  }
+}
+
 /* Capa 2: desenfoque solo bajo el texto, se disuelve hacia la derecha */
 .section_header36.is-hero-media .header36_blur {
   z-index: 1;

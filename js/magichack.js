@@ -190,11 +190,44 @@
     update();
   }
 
+  /* ----------------------------------------------------------------
+     5. Video del hero
+     Un solo <video> y el src se elige por ancho de pantalla, para que
+     nunca se descarguen los dos archivos. Si el sistema pide menos
+     movimiento, no se carga ninguno y queda la foto de poster.
+     ---------------------------------------------------------------- */
+  function initHeroVideo() {
+    var video = document.querySelector('[data-video-desktop]');
+    if (!video) return;
+
+    if (reduceMotion) return; // se queda el poster, que ya es la foto del hero
+
+    var mobile = window.matchMedia('(max-width: 767px)').matches;
+    var src = video.getAttribute(mobile ? 'data-video-mobile' : 'data-video-desktop');
+    if (!src) return;
+
+    video.setAttribute('preload', 'auto');
+    video.src = src;
+
+    video.addEventListener('canplay', function () {
+      video.classList.add('is-ready');
+    }, { once: true });
+
+    // Si el navegador bloquea el autoplay, el poster se queda y no pasa nada.
+    var attempt = video.play();
+    if (attempt && typeof attempt.catch === 'function') {
+      attempt.catch(function () {
+        video.classList.remove('is-ready');
+      });
+    }
+  }
+
   function boot() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-carousel]'), initCarousel);
     initReveal();
     initCounters();
     initProcessLine();
+    initHeroVideo();
   }
 
   if (document.readyState === 'loading') {
