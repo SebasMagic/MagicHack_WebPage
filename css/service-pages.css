@@ -1,0 +1,436 @@
+/* ============================================================
+   Paginas de servicio: growth-marketing, business-intelligence,
+   ai-automation. Se carga despues de custom.css y solo en esas 3.
+   Ritmo de fondos: charcoal, verde, charcoal, verde, charcoal, y
+   cierra con el banner cinematografico del home.
+   ============================================================ */
+
+.svc-page .padding-section-large {
+  background-color: #0000;
+}
+
+/* ---- Hero ---- */
+.section_svc-hero {
+  background-color: var(--_primitives---colors--neutral-darker);
+  color: var(--_primitives---colors--white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Reticula de fondo: textura de "sistema" sin cargar una sola imagen. */
+.svc-hero_grid {
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(0, 255, 102, .07) 1px, #0000 1px),
+    linear-gradient(90deg, rgba(0, 255, 102, .07) 1px, #0000 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(75% 65% at 72% 28%, #000 0%, #0000 100%);
+  mask-image: radial-gradient(75% 65% at 72% 28%, #000 0%, #0000 100%);
+  position: absolute;
+  inset: 0;
+}
+
+.section_svc-hero .padding-global {
+  z-index: 1;
+  position: relative;
+}
+
+.section_svc-hero .padding-section-large {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.svc-hero_eyebrow {
+  color: var(--_primitives---colors--spring-green);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+
+.section_svc-hero .heading-style-h1 {
+  color: var(--_primitives---colors--white);
+  max-width: 15ch;
+  font-size: min(4.25rem, 8vw);
+}
+
+.section_svc-hero .heading-style-h1 .is-accent {
+  color: var(--_primitives---colors--spring-green);
+  display: block;
+}
+
+.svc-hero_sub {
+  color: rgba(255, 255, 255, .84);
+  max-width: 48ch;
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+}
+
+.svc-hero_actions {
+  grid-column-gap: 1rem;
+  margin-top: 2.5rem;
+  display: flex;
+}
+
+.section_svc-hero .button.is-alternate {
+  border-color: var(--_primitives---colors--spring-green);
+  background-color: var(--_primitives---colors--spring-green);
+  color: var(--_primitives---colors--neutral-darkest);
+}
+
+.section_svc-hero .button.is-alternate:hover {
+  border-color: var(--_primitives---colors--spring-green-dark);
+  background-color: var(--_primitives---colors--spring-green-dark);
+}
+
+.section_svc-hero .button.is-secondary {
+  border-color: var(--_primitives---opacity--white-20);
+  background-color: #0000;
+  color: var(--_primitives---colors--white);
+}
+
+.section_svc-hero .button.is-secondary:hover {
+  background-color: var(--_primitives---opacity--white-10);
+}
+
+/* ---- Encabezado de seccion reutilizable ---- */
+.svc-eyebrow {
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: .875rem;
+  font-size: .8125rem;
+  font-weight: 600;
+}
+
+.svc-head {
+  max-width: 44rem;
+  margin-bottom: 3.5rem;
+}
+
+.svc-head h2 {
+  font-size: 2.75rem;
+  text-transform: uppercase;
+}
+
+.svc-head p {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-size: 1.0625rem;
+}
+
+/* ---- Problema (verde) ---- */
+.section_svc-problem {
+  background-color: var(--_primitives---colors--spring-green-darkest);
+  color: var(--_primitives---colors--white);
+}
+
+.section_svc-problem .svc-eyebrow,
+.section_svc-process .svc-eyebrow,
+.section_svc-deliver .svc-eyebrow,
+.section_svc-proof .svc-eyebrow {
+  color: var(--_primitives---colors--spring-green);
+}
+
+.section_svc-problem .svc-head h2,
+.section_svc-deliver .svc-head h2 {
+  color: var(--_primitives---colors--white);
+}
+
+.section_svc-problem .svc-head p,
+.section_svc-process .svc-head p,
+.section_svc-deliver .svc-head p {
+  color: rgba(255, 255, 255, .82);
+}
+
+.svc-problem_list {
+  grid-column-gap: 2.5rem;
+  grid-row-gap: 2.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+.svc-problem_item {
+  border-top: 2px solid rgba(255, 255, 255, .2);
+  padding-top: 1.5rem;
+}
+
+.svc-problem_item h3 {
+  margin: 0;
+  font-family: var(--_typography---font-styles--heading);
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.svc-problem_item p {
+  color: rgba(255, 255, 255, .74);
+  margin-top: .75rem;
+  margin-bottom: 0;
+  font-size: .9375rem;
+}
+
+/* ---- Proceso (charcoal, con la linea que se dibuja al hacer scroll) ---- */
+.section_svc-process {
+  background-color: var(--_primitives---colors--neutral-darker);
+  color: var(--_primitives---colors--white);
+}
+
+.section_svc-process .svc-head h2,
+.section_svc-proof .svc-head h2 {
+  color: var(--_primitives---colors--spring-green);
+}
+
+.process_list {
+  padding-left: 4rem;
+  position: relative;
+}
+
+.process_line {
+  background-color: var(--_primitives---opacity--white-15);
+  width: 2px;
+  position: absolute;
+  top: .5rem;
+  bottom: 3rem;
+  left: 15px;
+}
+
+.process_line-fill {
+  background-color: var(--_primitives---colors--spring-green);
+  width: 100%;
+  height: 0%;
+  transition: height .15s linear;
+  display: block;
+}
+
+.process_item {
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+.process_item:last-child {
+  padding-bottom: 0;
+}
+
+.process_dot {
+  color: var(--_primitives---colors--neutral-darker);
+  background-color: var(--_primitives---colors--spring-green);
+  border-radius: 99px;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--_typography---font-styles--heading);
+  font-size: .8125rem;
+  font-weight: 700;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: -4rem;
+}
+
+.process_window {
+  color: var(--_primitives---colors--spring-green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .6875rem;
+  font-weight: 600;
+}
+
+.process_item h3 {
+  margin: .375rem 0 0;
+  font-family: var(--_typography---font-styles--heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.process_item p {
+  color: rgba(255, 255, 255, .74);
+  max-width: 56ch;
+  margin-top: .625rem;
+  margin-bottom: 0;
+}
+
+/* ---- Entregables (verde) ---- */
+.section_svc-deliver {
+  background-color: var(--_primitives---colors--spring-green-darkest);
+  color: var(--_primitives---colors--white);
+}
+
+.svc-deliver_list {
+  grid-column-gap: 1.5rem;
+  grid-row-gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+}
+
+.svc-deliver_item {
+  border: 1px solid var(--_primitives---opacity--white-15);
+  border-radius: var(--_ui-styles---radius--medium);
+  padding: 1.75rem;
+  transition: border-color .2s, background-color .2s, transform .2s;
+}
+
+.svc-deliver_item:hover {
+  border-color: rgba(0, 255, 102, .45);
+  background-color: rgba(255, 255, 255, .04);
+  transform: translateY(-3px);
+}
+
+.svc-deliver_item h3 {
+  color: var(--_primitives---colors--white);
+  margin: 0;
+  font-family: var(--_typography---font-styles--heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.svc-deliver_item p {
+  color: rgba(255, 255, 255, .72);
+  margin-top: .625rem;
+  margin-bottom: 0;
+  font-size: .9375rem;
+}
+
+/* ---- Metricas + caso (charcoal) ---- */
+.section_svc-proof {
+  background-color: var(--_primitives---colors--neutral-darker);
+  color: var(--_primitives---colors--white);
+}
+
+.svc-metrics {
+  grid-column-gap: 3rem;
+  grid-row-gap: 2.5rem;
+  border-top: 1px solid var(--_primitives---opacity--white-15);
+  border-bottom: 1px solid var(--_primitives---opacity--white-15);
+  grid-template-columns: repeat(3, 1fr);
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  display: grid;
+}
+
+.svc-metric_value {
+  color: var(--_primitives---colors--spring-green);
+  font-family: var(--_typography---font-styles--heading);
+  font-size: 3.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.svc-metric_label {
+  color: rgba(255, 255, 255, .7);
+  max-width: 28ch;
+  margin-top: .625rem;
+  font-size: .9375rem;
+  line-height: 1.4;
+}
+
+.svc-case {
+  border: 1px solid var(--_primitives---opacity--white-15);
+  border-radius: var(--_ui-styles---radius--medium);
+  margin-top: 3rem;
+  padding: 2.25rem;
+}
+
+.svc-case_company {
+  color: var(--_primitives---colors--spring-green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.svc-case h3 {
+  color: var(--_primitives---colors--white);
+  max-width: 26ch;
+  margin: .75rem 0 0;
+  font-family: var(--_typography---font-styles--heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.svc-case p {
+  color: rgba(255, 255, 255, .74);
+  max-width: 62ch;
+  margin-top: .75rem;
+  margin-bottom: 1.5rem;
+}
+
+/* .button es display:flex, asi que dentro de un contenedor de bloque se
+   estira a todo el ancho. inline-flex lo devuelve a su tamano. */
+.svc-case .button {
+  display: inline-flex;
+}
+
+.svc-case .button.is-secondary.is-alternate {
+  border-color: var(--_primitives---opacity--white-20);
+  background-color: #0000;
+  color: var(--_primitives---colors--white);
+}
+
+.svc-case .button.is-secondary.is-alternate:hover {
+  background-color: var(--_primitives---opacity--white-10);
+}
+
+@media screen and (max-width: 991px) {
+  .svc-problem_list,
+  .svc-deliver_list,
+  .svc-metrics {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .svc-head h2 {
+    font-size: 2.25rem;
+  }
+
+  .section_svc-hero .padding-section-large {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .svc-problem_list,
+  .svc-deliver_list,
+  .svc-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .svc-hero_actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .process_list {
+    padding-left: 3rem;
+  }
+
+  .process_dot {
+    width: 28px;
+    height: 28px;
+    left: -3rem;
+  }
+
+  .process_line {
+    left: 13px;
+  }
+
+  .process_item h3 {
+    font-size: 1.375rem;
+  }
+
+  .svc-metric_value {
+    font-size: 2.5rem;
+  }
+
+  .svc-case {
+    padding: 1.5rem;
+  }
+}

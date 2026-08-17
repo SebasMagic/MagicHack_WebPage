@@ -1,3 +1,5 @@
+// Run with: node scripts/capture-baseline.ts (not npx tsx — tsx/esbuild's __name helper
+// in serialized functions doesn't exist in page.evaluate's browser context)
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 
@@ -29,7 +31,10 @@ async function main() {
     const page = await ctx.newPage();
 
     for (const p of PAGES) {
-      await page.goto(`${BASE}${p.path}`, { waitUntil: 'networkidle' });
+      const response = await page.goto(`${BASE}${p.path}`, { waitUntil: 'networkidle' });
+      if (!response || response.status() >= 400) {
+        throw new Error(`Failed to navigate to ${p.name}: HTTP ${response?.status() ?? 'no response'}`);
+      }
       // Las animaciones de scroll de Webflow necesitan que la pagina se recorra
       await page.evaluate(async () => {
         await new Promise<void>((resolve) => {

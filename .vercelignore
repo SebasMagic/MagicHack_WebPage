@@ -1,0 +1,12 @@
+# El sitio es el export estatico de Webflow: se sube tal cual, sin build.
+# Todo lo de abajo es herramienta de desarrollo, no forma parte del deploy.
+node_modules
+baseline
+docs
+scripts
+.superpowers
+playwright.config.ts
+package.json
+package-lock.json
+_shot.mjs
+_shot-hero.mjs
