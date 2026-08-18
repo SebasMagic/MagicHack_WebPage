@@ -10,10 +10,10 @@ combine strategy, hands-on execution and continuous measurement. Most run 90 to
 
 ## Services
 
-- [Growth Marketing](https://www.themagichack.com/growth-marketing.html): systematic experimentation across channels. Funnel teardown, ranked experiment backlog, channel scorecard, referral and loop mechanics.
-- [Business Intelligence](https://www.themagichack.com/business-intelligence.html): CRM, accounting, operations and marketing unified into one command center with live KPIs and threshold alerts.
-- [AI & Automation](https://www.themagichack.com/ai-automation.html): lead capture, segmentation, behaviour-triggered nurture, AI follow-up and appointment setting wired into one pipeline.
-- [Contact Center](https://www.themagichack.com/contact-center.html): CRM workflow rebuilt around the conversation, churn signals wired to alerts, agents coached on their own calls.
+- [Growth Marketing](https://www.themagichack.com/growth-marketing): systematic experimentation across channels. Funnel teardown, ranked experiment backlog, channel scorecard, referral and loop mechanics.
+- [Business Intelligence](https://www.themagichack.com/business-intelligence): CRM, accounting, operations and marketing unified into one command center with live KPIs and threshold alerts.
+- [AI & Automation](https://www.themagichack.com/ai-automation): lead capture, segmentation, behaviour-triggered nurture, AI follow-up and appointment setting wired into one pipeline.
+- [Contact Center](https://www.themagichack.com/contact-center): CRM workflow rebuilt around the conversation, churn signals wired to alerts, agents coached on their own calls.
 
 ## Proof
 
@@ -25,9 +25,9 @@ combine strategy, hands-on execution and continuous measurement. Most run 90 to
 ## Pages
 
 - [Home](https://www.themagichack.com/)
-- [Company and team](https://www.themagichack.com/company.html)
-- [Case studies](https://www.themagichack.com/case-studies-2.html)
-- [Contact](https://www.themagichack.com/contact.html)
+- [Company and team](https://www.themagichack.com/company)
+- [Case studies](https://www.themagichack.com/case-studies-2)
+- [Contact](https://www.themagichack.com/contact)
 
 ## Contact
 

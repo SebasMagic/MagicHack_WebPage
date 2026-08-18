@@ -946,19 +946,21 @@
 }
 
 .carousel_progress {
-  background-color: var(--_primitives---opacity--white-15);
+  background-color: var(--_primitives---opacity--white-20);
   border-radius: 99px;
   flex: 1;
-  height: 2px;
+  height: 4px;
   overflow: hidden;
 }
 
 .carousel_progress-bar {
   background-color: var(--_primitives---colors--spring-green);
+  border-radius: 99px;
   width: 100%;
   height: 100%;
   transition: transform .2s, width .2s;
   display: block;
+  box-shadow: 0 0 12px rgba(0, 255, 102, .55);
 }
 
 .carousel_buttons {
@@ -991,6 +993,54 @@
 .carousel_btn:disabled {
   cursor: default;
   opacity: .3;
+}
+
+/* En escritorio los botones se salen de la fila de abajo y se plantan en
+   los laterales, centrados sobre las portadas y en verde de marca. El
+   contenedor no atrapa clics: solo los botones. Abajo queda la barra de
+   progreso sola, ya gruesa para que se note. */
+@media screen and (min-width: 992px) {
+  .blog34_list-wrapper.is-carousel .carousel_buttons {
+    grid-column-gap: 0;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: absolute;
+    inset: 0 .75rem calc(2.5rem + 4px);
+    /* Centrados sobre la portada, no sobre la tarjeta entera: si no, el
+       boton cae encima del tag y del titulo. La portada es 3/2 y ocupa un
+       tercio de la pista, asi que su mitad sale de la propia anchura. */
+    padding-top: calc(100% / 9 - 1.778rem);
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .blog34_list-wrapper.is-carousel .carousel_btn {
+    color: var(--_primitives---colors--neutral-darkest);
+    background-color: var(--_primitives---colors--spring-green);
+    border-color: var(--_primitives---colors--spring-green);
+    width: 3rem;
+    height: 3rem;
+    pointer-events: auto;
+    box-shadow: 0 0 0 6px rgba(0, 255, 102, .12), 0 .5rem 1.5rem rgba(0, 0, 0, .45);
+    transition: border-color .18s, background-color .18s, color .18s,
+                opacity .18s, transform .18s, box-shadow .18s;
+  }
+
+  .blog34_list-wrapper.is-carousel .carousel_btn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .blog34_list-wrapper.is-carousel .carousel_btn:hover:not(:disabled) {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 10px rgba(0, 255, 102, .2), 0 .625rem 1.75rem rgba(0, 0, 0, .5);
+  }
+
+  /* Sin salida por ese lado el boton se apaga en vez de quedar verde a medias. */
+  .blog34_list-wrapper.is-carousel .carousel_btn:disabled {
+    opacity: 0;
+    transform: scale(.9);
+  }
 }
 
 /* Sin desbordamiento no hay nada que pasear: se ocultan los controles. */

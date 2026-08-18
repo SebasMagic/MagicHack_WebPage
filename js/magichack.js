@@ -52,7 +52,10 @@
         var dir = parseInt(btn.getAttribute('data-carousel-dir'), 10);
         track.scrollBy({
           left: dir * step(),
-          behavior: reduceMotion ? 'auto' : 'smooth'
+          // Siempre suave. En Windows el flag de menos movimiento se enciende
+          // solo al entrar en ahorro de energia, y ahi el salto seco se siente
+          // roto sin que nadie lo haya pedido.
+          behavior: 'smooth'
         });
       });
     });
@@ -193,14 +196,16 @@
   /* ----------------------------------------------------------------
      5. Video del hero
      Un solo <video> y el src se elige por ancho de pantalla, para que
-     nunca se descarguen los dos archivos. Si el sistema pide menos
-     movimiento, no se carga ninguno y queda la foto de poster.
+     nunca se descarguen los dos archivos. El video corre siempre, aunque
+     el sistema pida menos movimiento: en Windows ese flag se enciende solo
+     al apagar los efectos de animacion o al entrar en ahorro de energia, y
+     el hero se perdia en escritorio sin que nadie lo hubiera pedido. La
+     foto queda de respaldo mientras carga o si el navegador bloquea el
+     autoplay.
      ---------------------------------------------------------------- */
   function initHeroVideo() {
     var video = document.querySelector('[data-video-desktop]');
     if (!video) return;
-
-    if (reduceMotion) return; // se queda el poster, que ya es la foto del hero
 
     var mobile = window.matchMedia('(max-width: 767px)').matches;
     var src = video.getAttribute(mobile ? 'data-video-mobile' : 'data-video-desktop');
