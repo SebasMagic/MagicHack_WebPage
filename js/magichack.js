@@ -206,12 +206,19 @@
     var src = video.getAttribute(mobile ? 'data-video-mobile' : 'data-video-desktop');
     if (!src) return;
 
+    function reveal() {
+      video.classList.add('is-ready');
+    }
+    // loadeddata basta para mostrarlo; canplay es el respaldo.
+    video.addEventListener('loadeddata', reveal, { once: true });
+    video.addEventListener('canplay', reveal, { once: true });
+
     video.setAttribute('preload', 'auto');
     video.src = src;
-
-    video.addEventListener('canplay', function () {
-      video.classList.add('is-ready');
-    }, { once: true });
+    // Sin este load() el elemento se queda en readyState 0 y nunca pide el
+    // archivo: asignar .src no reinicia solo la seleccion de recurso cuando
+    // el elemento se parseo con preload="none".
+    video.load();
 
     // Si el navegador bloquea el autoplay, el poster se queda y no pasa nada.
     var attempt = video.play();
@@ -222,12 +229,107 @@
     }
   }
 
+  /* ----------------------------------------------------------------
+     6. Modal
+     Abre con [data-modal-open="id"], cierra con backdrop, boton o Esc.
+     El foco se queda dentro mientras esta abierto y vuelve al boton
+     que lo abrio al cerrarse.
+     ---------------------------------------------------------------- */
+  var CALENDAR_URL = 'https://calendar.app.google/pw4ApxYPKKgQyKFo6';
+
+  function initModals() {
+    var openers = document.querySelectorAll('[data-modal-open]');
+    if (!openers.length) return;
+
+    var lastFocused = null;
+    var FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), textarea, select, [tabindex]:not([tabindex="-1"])';
+
+    function open(modal, trigger) {
+      lastFocused = trigger;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      var first = modal.querySelector('input, button');
+      if (first) first.focus();
+      document.addEventListener('keydown', onKey);
+    }
+
+    function close(modal) {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKey);
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    function onKey(e) {
+      var modal = document.querySelector('.modal:not([hidden])');
+      if (!modal) return;
+      if (e.key === 'Escape') { close(modal); return; }
+      if (e.key !== 'Tab') return;
+      var items = Array.prototype.filter.call(
+        modal.querySelectorAll(FOCUSABLE),
+        function (el) { return el.offsetParent !== null; }
+      );
+      if (!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+
+    Array.prototype.forEach.call(openers, function (btn) {
+      btn.addEventListener('click', function (e) {
+        var modal = document.getElementById(btn.getAttribute('data-modal-open'));
+        if (!modal) return;
+        e.preventDefault();
+        open(modal, btn);
+      });
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll('.modal'), function (modal) {
+      Array.prototype.forEach.call(modal.querySelectorAll('[data-modal-close]'), function (el) {
+        el.addEventListener('click', function () { close(modal); });
+      });
+
+      var form = modal.querySelector('form');
+      if (!form) return;
+      var error = modal.querySelector('[data-modal-error]');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var fields = form.querySelectorAll('input[required]');
+        var faltantes = [];
+        Array.prototype.forEach.call(fields, function (input) {
+          var ok = input.value.trim() !== '' &&
+            (input.type !== 'email' || /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value.trim()));
+          input.classList.toggle('has-error', !ok);
+          if (!ok) faltantes.push(input);
+        });
+
+        if (faltantes.length) {
+          if (error) {
+            error.textContent = faltantes.length === 1 && faltantes[0].type === 'email'
+              ? 'Check the email address.'
+              : 'Fill in every field to continue.';
+            error.hidden = false;
+          }
+          faltantes[0].focus();
+          return;
+        }
+
+        if (error) error.hidden = true;
+        window.open(CALENDAR_URL, '_blank', 'noopener');
+        close(modal);
+        form.reset();
+      });
+    });
+  }
+
   function boot() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-carousel]'), initCarousel);
     initReveal();
     initCounters();
     initProcessLine();
     initHeroVideo();
+    initModals();
   }
 
   if (document.readyState === 'loading') {

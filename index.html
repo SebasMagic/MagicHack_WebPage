@@ -9,6 +9,7 @@
   <link href="css/webflow.css" rel="stylesheet" type="text/css">
   <link href="css/sebastians-fantabulous-site-974d51.webflow.css" rel="stylesheet" type="text/css">
   <link href="css/custom.css" rel="stylesheet" type="text/css">
+  <link href="css/modal.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
@@ -437,8 +438,8 @@ margin: 0rem !important;
             <p class="text-size-medium"><span><strong class="bold-text">We fuse marketing, data, and technology into a single weapon. No guessing. No safe plays. Just results that scale.</strong></span></p>
             <div class="margin-top margin-medium">
               <div class="button-group">
-                <a href="#email-form" class="button w-button">Start scaling</a>
-                <a href="#" class="button is-secondary is-alternate w-button">See our work</a>
+                <a href="#" class="button w-button" data-modal-open="discovery">Start scaling</a>
+                <a href="#results" class="button is-secondary is-alternate w-button">See our work</a>
               </div>
             </div>
           </div>
@@ -679,7 +680,7 @@ margin: 0rem !important;
           </div>
         </div>
       </section>
-      <section class="section_blog34">
+      <section class="section_blog34" id="results">
         <div class="padding-global">
           <div class="container-large">
             <div class="padding-section-large">
@@ -959,6 +960,41 @@ margin: 0rem !important;
         </div>
       </section>
     </main>
+    <div class="modal" id="discovery" role="dialog" aria-modal="true" aria-labelledby="discovery-title" hidden>
+      <div class="modal_backdrop" data-modal-close></div>
+      <div class="modal_card" role="document">
+        <div class="modal_crest" aria-hidden="true"></div>
+        <button type="button" class="modal_close" data-modal-close aria-label="Close">
+          <svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.6"></path>
+          </svg>
+        </button>
+        <div class="modal_body">
+          <div class="modal_eyebrow">Discovery call</div>
+          <h2 class="modal_title" id="discovery-title">Thirty minutes. <span class="is-accent">Zero guessing.</span></h2>
+          <p class="modal_sub">Tell us who you are and pick a slot. We come with questions about your funnel, not a deck.</p>
+          <form class="modal_form" novalidate>
+            <div class="modal_row">
+              <label class="modal_field">
+                <span>First name</span>
+                <input type="text" name="firstName" autocomplete="given-name" required>
+              </label>
+              <label class="modal_field">
+                <span>Last name</span>
+                <input type="text" name="lastName" autocomplete="family-name" required>
+              </label>
+            </div>
+            <label class="modal_field">
+              <span>Work email</span>
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+            <p class="modal_error" data-modal-error hidden></p>
+            <button type="submit" class="button w-button modal_submit">Book a call</button>
+            <p class="modal_note">Opens our calendar in a new tab.</p>
+          </form>
+        </div>
+      </div>
+    </div>
     <footer class="footer2_component color-scheme-3">
       <div class="padding-global">
         <div class="container-large">
