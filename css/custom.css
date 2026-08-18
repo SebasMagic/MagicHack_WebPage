@@ -1249,3 +1249,20 @@
 .color-scheme-1 .text-style-tagline {
   color: var(--_primitives---colors--spring-green-darker);
 }
+
+/* Los CTA en blanco sobre el verde fosforescente dan 1.36:1, muy por debajo
+   del minimo legible. Texto oscuro sobre ese verde da ~14:1, que es lo que
+   ya se resolvio bien en el boton Contact del navbar. */
+.button.is-secondary.is-alternate,
+.section_layout239.is-arsenal-green .button.is-secondary.is-alternate {
+  color: var(--_primitives---colors--neutral-darkest);
+}
+
+/* En los paneles oscuros el mismo boton va en contorno, ahi el texto blanco
+   si tiene contraste de sobra contra el fondo charcoal. */
+.section_layout538 .button.is-secondary.is-alternate,
+.section_blog34 .button.is-secondary.is-alternate,
+.svc-case .button.is-secondary.is-alternate,
+.navbar10_menu-right .button.is-secondary.is-alternate {
+  color: var(--_primitives---colors--white);
+}
