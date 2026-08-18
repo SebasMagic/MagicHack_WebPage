@@ -26,7 +26,7 @@ combine strategy, hands-on execution and continuous measurement. Most run 90 to
 
 - [Home](https://www.themagichack.com/)
 - [Company and team](https://www.themagichack.com/company)
-- [Case studies](https://www.themagichack.com/case-studies-2)
+- [Case studies](https://www.themagichack.com/case-studies)
 - [Contact](https://www.themagichack.com/contact)
 
 ## Contact
