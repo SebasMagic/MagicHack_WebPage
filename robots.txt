@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Artefactos internos y paginas de utilidad: no aportan nada a un indice.
+Disallow: /style-guide-5f09bdf0-13bc-4fe5-8982-e7c36d0777aa.html
+Disallow: /401.html
+Disallow: /case-studies/case-study.html
+
+Sitemap: https://www.themagichack.com/sitemap.xml

@@ -1,0 +1,34 @@
+# MagicHack
+
+> Growth consultancy that fuses marketing, data and technology into a single
+> operating system. We work with ambitious businesses across the United States,
+> Colombia, Bolivia and Panama.
+
+MagicHack Consulting engineers growth instead of advising on it. Engagements
+combine strategy, hands-on execution and continuous measurement. Most run 90 to
+180 days, with measurable progress inside the first month.
+
+## Services
+
+- [Growth Marketing](https://www.themagichack.com/growth-marketing.html): systematic experimentation across channels. Funnel teardown, ranked experiment backlog, channel scorecard, referral and loop mechanics.
+- [Business Intelligence](https://www.themagichack.com/business-intelligence.html): CRM, accounting, operations and marketing unified into one command center with live KPIs and threshold alerts.
+- [AI & Automation](https://www.themagichack.com/ai-automation.html): lead capture, segmentation, behaviour-triggered nurture, AI follow-up and appointment setting wired into one pipeline.
+- [Contact Center](https://www.themagichack.com/contact-center.html): CRM workflow rebuilt around the conversation, churn signals wired to alerts, agents coached on their own calls.
+
+## Proof
+
+- 340% revenue growth in eighteen months — One Stop Design & Build
+- 52% churn reduction in ninety days — Agua Siembra contact center
+- 45% market share captured in its segment — JP Resin
+- [Movik](https://movik-growth-loop.vercel.app/): FMCSA intelligence wired into a growth operating system
+
+## Pages
+
+- [Home](https://www.themagichack.com/)
+- [Company and team](https://www.themagichack.com/company.html)
+- [Case studies](https://www.themagichack.com/case-studies-2.html)
+- [Contact](https://www.themagichack.com/contact.html)
+
+## Contact
+
+Email: sebastian@themagichack.com

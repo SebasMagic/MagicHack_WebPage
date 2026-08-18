@@ -1198,3 +1198,54 @@
     padding-bottom: 3rem;
   }
 }
+
+/* ------------------------------------------------------------
+   CAUSA RAIZ del texto ilegible del export de Webflow.
+   .padding-section-large trae background-color:#fff y se pinta ENCIMA
+   del fondo que define el color-scheme de cada seccion. En las
+   secciones color-scheme-3/4/5 (verdes y oscuras) el texto sigue
+   siendo blanco pero el fondo pasa a blanco: contraste 1:1, contenido
+   invisible. Verificado que ocurre igual sin custom.css, o sea que ya
+   venia asi del export. Se devuelve a transparente para que mande el
+   color-scheme, que es lo que Webflow pretendia.
+   ------------------------------------------------------------ */
+.padding-section-large {
+  background-color: #0000;
+}
+
+/* Las secciones sin color-scheme si necesitan el blanco explicito. */
+.section_layout239:not(.is-arsenal-green) > .padding-global,
+.section_testimonial14,
+.section_faq10 {
+  background-color: var(--_primitives---colors--white);
+}
+
+/* Verde fosforescente sobre blanco da 1.36:1. En fondo claro va el verde
+   oscuro de marca, que llega a ~7:1. */
+.color-scheme-1 .heading-style-h1,
+.color-scheme-1 .heading-style-h2 {
+  color: var(--_primitives---colors--spring-green-darker);
+}
+
+/* case-studies-2.html trae color-scheme-5 (fondo claro) en la seccion de
+   resultados, que gana por especificidad sobre el panel oscuro y deja el
+   titular y las descripciones a 1.03:1. Se iguala la especificidad. */
+.section_blog34.color-scheme-5 {
+  background-color: var(--_primitives---colors--neutral-darker);
+  color: var(--_primitives---colors--white);
+}
+
+.section_blog34.color-scheme-5 .heading-style-h2 {
+  color: var(--_primitives---colors--spring-green);
+}
+
+.section_blog34.color-scheme-5 .text-size-medium,
+.section_blog34.color-scheme-5 .text-size-regular {
+  color: rgba(255, 255, 255, .84);
+}
+
+/* El tagline verde fosforescente sobre el gris claro de color-scheme-5. */
+.color-scheme-5 .text-style-tagline,
+.color-scheme-1 .text-style-tagline {
+  color: var(--_primitives---colors--spring-green-darker);
+}
