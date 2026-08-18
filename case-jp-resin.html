@@ -157,16 +157,13 @@ h2 .script{font-family:var(--script);text-transform:none;color:var(--accent);let
    with a heavy media asset the browser paints mid-parse and a veil that comes
    after shows the raw image at full brightness for a beat. */
 .veil-stack{position:absolute;inset:0;z-index:2;pointer-events:none;background:
-  linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.08) 34%,transparent 58%,var(--ground) 100%),
-  radial-gradient(ellipse at 50% 50%,transparent 46%,rgba(0,0,0,.52)),
+  linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,.06) 34%,transparent 58%,var(--ground) 100%),
+  /* Contrast is bought on the copy side only, as a full-height sweep. A box
+     behind the text leaves a visible rectangle against a light plate. */
+  linear-gradient(100deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.60) 30%,rgba(0,0,0,.22) 55%,transparent 74%),
+  radial-gradient(ellipse at 50% 50%,transparent 48%,rgba(0,0,0,.46)),
   radial-gradient(ellipse at 14% 10%,rgba(254,206,47,.13) 0%,transparent 52%),
-  linear-gradient(125deg,rgba(0,0,0,.30) 0%,rgba(10,8,0,.20) 100%)}
-/* A readability floor behind the copy column only, so the veil over the rest of
-   the plate can stay light without the h1 losing contrast. */
-.hero-copy::before{content:'';position:absolute;inset:-40px -60px -30px -50px;z-index:-1;
-  background:radial-gradient(ellipse at 30% 45%,rgba(0,0,0,.72) 0%,rgba(0,0,0,.42) 52%,transparent 78%);
-  pointer-events:none}
-.hero-copy{position:relative;z-index:1}
+  linear-gradient(125deg,rgba(0,0,0,.18) 0%,rgba(10,8,0,.12) 100%)}
 .hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
   object-position:center 34%;z-index:0;filter:grayscale(.12) contrast(1.04) brightness(1.06);
   transform-origin:58% 42%;animation:kenburns 28s ease-in-out infinite alternate}
@@ -242,6 +239,13 @@ h2 .script{font-family:var(--script);text-transform:none;color:var(--accent);let
 /* Jersey M54 ships blank glyphs for + , $ and %, so any symbol inside a
    figure is rendered through the sans stack instead. Digits stay display. */
 .sym{font-family:var(--sans);font-weight:800;font-size:.86em;letter-spacing:-.03em}
+
+/* The display face carries no `tnum` feature, which makes font-variant-numeric
+   inert on it: at 36px a "1" is 8.3px wide and a "4" is 18.8px. Counting through
+   those reflowed the box on every frame. Each digit gets a fixed advance wider
+   than the widest glyph (18.83/36 = .523em) so the figure never reflows, and
+   static figures in a column line up as well. */
+.d{display:inline-block;width:.54em;text-align:center}
 .hstat .k{display:block;font-family:var(--mono);font-size:9.5px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);line-height:1.5;
   text-align:right;max-width:60%}
@@ -589,10 +593,10 @@ footer{position:relative;z-index:3;margin-top:110px;
     <a class="nav-brand" href="#top"><span class="mark">JP</span><b>JP <em>Resin</em></b></a>
     <div class="nav-links">
       <a href="#loop"><span class="n">&#9679;</span>The loop</a>
-      <a href="#position"><span class="n">01</span>Position</a>
-      <a href="#demand"><span class="n">02</span>Demand</a>
-      <a href="#capture"><span class="n">03</span>Capture</a>
-      <a href="#route"><span class="n">04</span>Route</a>
+      <a href="#route"><span class="n">01</span>Route</a>
+      <a href="#position"><span class="n">02</span>Position</a>
+      <a href="#demand"><span class="n">03</span>Demand</a>
+      <a href="#capture"><span class="n">04</span>Capture</a>
       <a href="#close"><span class="n">05</span>Close</a>
       <a href="#learn"><span class="n">06</span>Learn</a>
       <a href="#output"><span class="n">&#9632;</span>The output</a>
@@ -707,22 +711,22 @@ footer{position:relative;z-index:3;margin-top:110px;
         <g class="node-g" data-i="1">
           <circle class="node-c" cx="250" cy="75" r="33"/>
           <text class="node-n" x="250" y="80">01</text>
-          <text class="node-t" x="250" y="26">Position</text>
+          <text class="node-t" x="250" y="26">Route</text>
         </g>
         <g class="node-g" data-i="2">
           <circle class="node-c" cx="386" cy="163" r="33"/>
           <text class="node-n" x="386" y="168">02</text>
-          <text class="node-t" x="386" y="114">Demand</text>
+          <text class="node-t" x="386" y="114">Position</text>
         </g>
         <g class="node-g" data-i="3">
           <circle class="node-c" cx="386" cy="337" r="33"/>
           <text class="node-n" x="386" y="342">03</text>
-          <text class="node-t" x="386" y="393">Capture</text>
+          <text class="node-t" x="386" y="393">Demand</text>
         </g>
         <g class="node-g" data-i="4">
           <circle class="node-c" cx="250" cy="425" r="33"/>
           <text class="node-n" x="250" y="430">04</text>
-          <text class="node-t" x="250" y="481">Route</text>
+          <text class="node-t" x="250" y="481">Capture</text>
         </g>
         <g class="node-g" data-i="5">
           <circle class="node-c" cx="114" cy="337" r="33"/>
@@ -737,24 +741,24 @@ footer{position:relative;z-index:3;margin-top:110px;
       </svg>
 
       <div class="loop-legend rv" style="transition-delay:.1s">
-        <div class="lrow"><span class="n">01</span><div><b>Position</b>
-          <p>Brand, site and content built so the work photographs like a product, not a trade job.</p></div></div>
-        <div class="lrow"><span class="n">02</span><div><b>Demand</b>
-          <p>Meta Ads for the metro jobs, organic reels for reach the ads can't buy.</p></div></div>
-        <div class="lrow"><span class="n">03</span><div><b>Capture</b>
-          <p>An agent we built qualifies every DM and SMS the moment it lands, day or night.</p></div></div>
-        <div class="lrow"><span class="n">04</span><div><b>Route</b>
+        <div class="lrow"><span class="n">01</span><div><b>Route</b>
           <p>Make writes the qualified conversation into the CRM with its answers already attached.</p></div></div>
+        <div class="lrow"><span class="n">02</span><div><b>Position</b>
+          <p>Brand, site and content built so the work photographs like a product, not a trade job.</p></div></div>
+        <div class="lrow"><span class="n">03</span><div><b>Demand</b>
+          <p>Meta Ads for the metro jobs, organic reels for reach the ads can't buy.</p></div></div>
+        <div class="lrow"><span class="n">04</span><div><b>Capture</b>
+          <p>An agent we built qualifies every DM and SMS the moment it lands, day or night.</p></div></div>
         <div class="lrow"><span class="n">05</span><div><b>Close</b>
           <p>Go High Level holds one pipeline per revenue line. The rep opens a deal already briefed.</p></div></div>
         <div class="lrow"><span class="n">06</span><div><b>Learn</b>
-          <p>The GHL dashboards report which angle, zip and format actually paid. That answer becomes step 01.</p></div></div>
+          <p>The GHL dashboards report which angle, zip and format actually paid. That answer becomes step 02.</p></div></div>
       </div>
     </div>
 
     <div class="callout find rv">
       <span class="lbl">Finding</span>
-      <p>The step that changed the business was not the ads. It was <b>step 03</b>. Before the bot,
+      <p>The step that changed the business was not the ads. It was <b>step 04</b>. Before the bot,
       every lead waited for JP to put down a grinder and pick up a phone. Response time was measured
       in hours and the best hours to reply were exactly the hours he was on a floor. Moving the first
       reply to a machine is where the <b>+80% in sales management efficiency</b> came from.</p>
@@ -762,13 +766,57 @@ footer{position:relative;z-index:3;margin-top:110px;
   </div>
 </section>
 
-<!-- ============================= 01 POSITION ============================= -->
+<!-- ============================= 01 ROUTE ============================= -->
+  <section class="step" id="route" style="border-top:0;padding-top:0">
+    <div class="step-head rv">
+      <span class="step-num">01</span>
+      <div>
+        <span class="sec-tag"><i></i> Route</span>
+        <h2>Nobody retypes<br><em>anything</em></h2>
+        <p class="sec-sub">Make sits between the conversation and Go High Level. The moment an
+        inbound message has been qualified, one scenario fires and the deal exists in the CRM with
+        every answer already attached to it. <b>The rep never opens Instagram to find out what the
+        customer said.</b></p>
+      </div>
+    </div>
+
+    <div class="step-body">
+      <div class="three-col">
+        <div class="ucard rv" style="--c:var(--accent)">
+          <span class="code">Trigger</span>
+          <h3 style="margin-top:12px">Qualified, not just answered</h3>
+          <p>The scenario only runs when <code style="font-family:var(--mono);font-size:11px;color:var(--accent-lbl)">intent_type</code>
+          and <code style="font-family:var(--mono);font-size:11px;color:var(--accent-lbl)">zip_code</code>
+          are both resolved. Half-finished chats stay in the conversation layer and keep getting nudged.</p>
+        </div>
+        <div class="ucard rv" style="--c:var(--teal);transition-delay:.08s">
+          <span class="code">Transform</span>
+          <h3 style="margin-top:12px">One shape for three products</h3>
+          <p>A floor lead, a commercial lead and a course buyer arrive in different words and leave
+          in the same schema, so the dashboard can compare them later without a cleanup step.</p>
+        </div>
+        <div class="ucard rv" style="--c:var(--neutral);transition-delay:.16s">
+          <span class="code">Deliver</span>
+          <h3 style="margin-top:12px">Deal, owner, and a first line</h3>
+          <p>Go High Level gets the deal, the right pipeline, an owner, and a summary the rep can
+          read in eight seconds before dialling.</p>
+        </div>
+      </div>
+
+      <div class="shot wide rv" style="margin-top:26px">
+        <img src="case-assets/jpresin/img/grind.webp" alt="JP demonstrating prep work while the crew watches" loading="lazy">
+        <span class="tag">The hours the system gave back</span>
+      </div>
+    </div>
+  </section>
+
+<!-- ============================= 02 POSITION ============================= -->
 <section class="sec" style="padding-bottom:0">
   <div class="wrap">
 
-  <section class="step" id="position" style="border-top:0;padding-top:0">
+  <section class="step" id="position">
     <div class="step-head rv">
-      <span class="step-num">01</span>
+      <span class="step-num">02</span>
       <div>
         <span class="sec-tag"><i></i> Position</span>
         <h2>Make the work look<br>like <span class="script">a product</span></h2>
@@ -807,10 +855,10 @@ footer{position:relative;z-index:3;margin-top:110px;
     </div>
   </section>
 
-<!-- ============================= 02 DEMAND ============================= -->
+<!-- ============================= 03 DEMAND ============================= -->
   <section class="step" id="demand">
     <div class="step-head rv">
-      <span class="step-num">02</span>
+      <span class="step-num">03</span>
       <div>
         <span class="sec-tag"><i></i> Demand</span>
         <h2>Three sources<br>one <em>inbox</em></h2>
@@ -855,10 +903,10 @@ footer{position:relative;z-index:3;margin-top:110px;
     </div>
   </section>
 
-<!-- ============================= 03 CAPTURE ============================= -->
+<!-- ============================= 04 CAPTURE ============================= -->
   <section class="step" id="capture">
     <div class="step-head rv">
-      <span class="step-num">03</span>
+      <span class="step-num">04</span>
       <div>
         <span class="sec-tag"><i></i> Capture</span>
         <h2>The first reply<br>stopped being <em>a person</em></h2>
@@ -959,49 +1007,6 @@ footer{position:relative;z-index:3;margin-top:110px;
     </div>
   </section>
 
-<!-- ============================= 04 ROUTE ============================= -->
-  <section class="step" id="route">
-    <div class="step-head rv">
-      <span class="step-num">04</span>
-      <div>
-        <span class="sec-tag"><i></i> Route</span>
-        <h2>Nobody retypes<br><em>anything</em></h2>
-        <p class="sec-sub">Make sits between the agent and Go High Level. When the agent finishes
-        qualifying, the scenario fires once and the deal exists with all twelve fields already on it.
-        <b>The rep never opens Instagram to find out what the customer said.</b></p>
-      </div>
-    </div>
-
-    <div class="step-body">
-      <div class="three-col">
-        <div class="ucard rv" style="--c:var(--accent)">
-          <span class="code">Trigger</span>
-          <h3 style="margin-top:12px">Qualified, not just answered</h3>
-          <p>The scenario only runs when <code style="font-family:var(--mono);font-size:11px;color:var(--accent-lbl)">intent_type</code>
-          and <code style="font-family:var(--mono);font-size:11px;color:var(--accent-lbl)">zip_code</code>
-          are both resolved. Half-finished chats stay with the agent and keep getting nudged.</p>
-        </div>
-        <div class="ucard rv" style="--c:var(--teal);transition-delay:.08s">
-          <span class="code">Transform</span>
-          <h3 style="margin-top:12px">One shape for three products</h3>
-          <p>A floor lead, a commercial lead and a course buyer arrive in different words and leave
-          in the same schema, so the dashboard can compare them later without a cleanup step.</p>
-        </div>
-        <div class="ucard rv" style="--c:var(--neutral);transition-delay:.16s">
-          <span class="code">Deliver</span>
-          <h3 style="margin-top:12px">Deal, owner, and a first line</h3>
-          <p>Go High Level gets the deal, the right pipeline, an owner, and a summary the rep can
-          read in eight seconds before dialling.</p>
-        </div>
-      </div>
-
-      <div class="shot wide rv" style="margin-top:26px">
-        <img src="case-assets/jpresin/img/grind.webp" alt="JP demonstrating prep work while the crew watches" loading="lazy">
-        <span class="tag">The hours the system gave back</span>
-      </div>
-    </div>
-  </section>
-
 <!-- ============================= 05 CLOSE ============================= -->
   <section class="step" id="close">
     <div class="step-head rv">
@@ -1050,7 +1055,7 @@ footer{position:relative;z-index:3;margin-top:110px;
         <h2>The dashboard writes<br>the next <em>brief</em></h2>
         <p class="sec-sub">The Go High Level dashboards read the pipeline and the ad platforms and
         answer four questions every week. The answers are not a report anybody files. <b>They are the input to
-        step 01.</b></p>
+        step 02.</b></p>
       </div>
     </div>
 
@@ -1059,19 +1064,19 @@ footer{position:relative;z-index:3;margin-top:110px;
         <div class="prow rv"><span class="rk">1</span>
           <div><b>Which finish is closing?</b>
           <p>Metallic, flake or solid. The winner becomes next month's content, not next month's guess.</p></div>
-          <span class="ptag hot">Feeds 01</span></div>
+          <span class="ptag hot">Feeds 02</span></div>
         <div class="prow rv" style="transition-delay:.06s"><span class="rk">2</span>
           <div><b>Which zips pay?</b>
           <p>Cost per booked job by area, not cost per lead. The ad targeting narrows on the answer.</p></div>
-          <span class="ptag hot">Feeds 02</span></div>
+          <span class="ptag hot">Feeds 03</span></div>
         <div class="prow rv" style="transition-delay:.12s"><span class="rk">3</span>
           <div><b>Where do conversations die?</b>
           <p>The field where the bot loses people is the field whose question gets rewritten.</p></div>
-          <span class="ptag">Feeds 03</span></div>
+          <span class="ptag">Feeds 04</span></div>
         <div class="prow rv" style="transition-delay:.18s"><span class="rk">4</span>
           <div><b>What did organic actually sell?</b>
           <p>Views are not the metric. Course seats and commercial enquiries traced back to a reel are.</p></div>
-          <span class="ptag">Feeds 01 and 02</span></div>
+          <span class="ptag">Feeds 02 and 03</span></div>
       </div>
 
       <div class="callout warn rv">
@@ -1170,7 +1175,7 @@ footer{position:relative;z-index:3;margin-top:110px;
         <div class="tier-head">
           <span class="tier-code">X</span>
           <div class="tier-id"><b>Deliberately not worked</b>
-            <span>Excluded at step 03, before a rep sees it</span></div>
+            <span>Excluded at step 04, before a rep sees it</span></div>
           <div class="tier-n">Filtered<small>By the bot</small></div>
         </div>
         <div class="tier-body">
@@ -1234,21 +1239,50 @@ footer{position:relative;z-index:3;margin-top:110px;
     var pre = el.dataset.prefix || '';
     var suf = el.dataset.suffix || '';
     var txt = pre + n.toLocaleString('en-US') + suf;
-    // The display face has blank glyphs for + , $ and %. Wrap every
-    // non-alphanumeric character so it renders through the sans stack.
-    return txt.replace(/[^0-9A-Za-z]/g, function(c){ return '<span class="sym">' + c + '</span>'; });
+    // Digits get a fixed-advance box, symbols go through the sans stack
+    // (the display face renders + , $ and % as blank glyphs).
+    var out = '';
+    for (var i = 0; i < txt.length; i++){
+      var c = txt.charAt(i);
+      if (c >= '0' && c <= '9')            out += '<span class="d">' + c + '</span>';
+      else if (/[A-Za-z]/.test(c))         out += c;
+      else                                 out += '<span class="sym">' + c + '</span>';
+    }
+    return out;
+  }
+
+  // Reserve the width of the finished figure up front. Fixed-advance digits stop
+  // the glyphs shifting, but the digit COUNT still grows from 0, so without this
+  // the box and the label beside it would still slide during the count.
+  function lockWidth(el){
+    var target = parseFloat(el.dataset.count);
+    if (isNaN(target)) return;
+    var keep = el.innerHTML;
+    el.style.minWidth = '';
+    el.innerHTML = fmt(el, target);
+    el.style.minWidth = Math.ceil(el.getBoundingClientRect().width) + 'px';
+    el.innerHTML = keep;
+  }
+
+  var counters = Array.prototype.slice.call(document.querySelectorAll('[data-count]'));
+  counters.forEach(lockWidth);
+  // Widths measured before the webfont lands describe the fallback, so redo them
+  // once the real face is in.
+  if (document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ counters.forEach(lockWidth); });
   }
 
   function countUp(el){
     var target = parseFloat(el.dataset.count);
     if (isNaN(target)) return;
     if (reduce){ el.innerHTML = fmt(el, target); return; }
-    var dur = 1700, t0 = null;
+    var dur = 1700, t0 = null, last = null;
     function frame(ts){
       if (t0 === null) t0 = ts;
       var p = Math.min((ts - t0) / dur, 1);
       var e = 1 - Math.pow(1 - p, 4);           // easeOutQuart
-      el.innerHTML = fmt(el, Math.round(target * e));
+      var n = Math.round(target * e);
+      if (n !== last){ last = n; el.innerHTML = fmt(el, n); }
       if (p < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
