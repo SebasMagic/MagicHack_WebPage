@@ -220,13 +220,46 @@
     // el elemento se parseo con preload="none".
     video.load();
 
-    // Si el navegador bloquea el autoplay, el poster se queda y no pasa nada.
-    var attempt = video.play();
-    if (attempt && typeof attempt.catch === 'function') {
-      attempt.catch(function () {
-        video.classList.remove('is-ready');
-      });
+    // Chrome puede bloquear el autoplay aunque el video vaya muted: depende
+    // del Media Engagement Index, del ahorro de energia y de extensiones.
+    // Si pasa, se reintenta al primer gesto del usuario en vez de dejar la
+    // foto fija para siempre.
+    var eventos = ['pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel'];
+
+    function intentar() {
+      var p = video.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(function () { armarReintento(); });
+      }
     }
+
+    function reintentar() {
+      desarmar();
+      intentar();
+    }
+
+    function armarReintento() {
+      eventos.forEach(function (ev) {
+        window.addEventListener(ev, reintentar, { once: true, passive: true });
+      });
+      document.addEventListener('visibilitychange', alVolver);
+    }
+
+    function desarmar() {
+      eventos.forEach(function (ev) { window.removeEventListener(ev, reintentar); });
+      document.removeEventListener('visibilitychange', alVolver);
+    }
+
+    function alVolver() {
+      if (!document.hidden) reintentar();
+    }
+
+    // Si el video se queda pausado por cualquier razon, se vuelve a intentar.
+    video.addEventListener('pause', function () {
+      if (!video.ended) armarReintento();
+    });
+
+    intentar();
   }
 
   /* ----------------------------------------------------------------
@@ -323,6 +356,43 @@
     });
   }
 
+  /* ----------------------------------------------------------------
+     7. Acordeones de FAQ
+     Webflow los dibuja como <div> con una interaccion de click: no se
+     pueden abrir con teclado y el lector de pantalla no sabe que son
+     plegables. Se les da semantica de boton sin tocar el markup ni la
+     animacion de Webflow, que sigue respondiendo al mismo click.
+     ---------------------------------------------------------------- */
+  function initFaq() {
+    var preguntas = document.querySelectorAll('.faq10_question');
+    if (!preguntas.length) return;
+
+    Array.prototype.forEach.call(preguntas, function (q, i) {
+      var respuesta = q.nextElementSibling;
+      if (!respuesta || respuesta.className.indexOf('faq10_answer') === -1) return;
+
+      if (!respuesta.id) respuesta.id = 'faq-answer-' + (i + 1);
+      q.setAttribute('role', 'button');
+      q.setAttribute('tabindex', '0');
+      q.setAttribute('aria-expanded', 'false');
+      q.setAttribute('aria-controls', respuesta.id);
+      respuesta.setAttribute('role', 'region');
+
+      q.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+        e.preventDefault();  // Espacio no debe hacer scroll de pagina
+        q.click();
+      });
+
+      // Webflow anima la altura; se lee de ahi si quedo abierto o cerrado.
+      var observer = new MutationObserver(function () {
+        var abierto = respuesta.offsetHeight > 4;
+        q.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+      });
+      observer.observe(respuesta, { attributes: true, attributeFilter: ['style'] });
+    });
+  }
+
   function boot() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-carousel]'), initCarousel);
     initReveal();
@@ -330,6 +400,7 @@
     initProcessLine();
     initHeroVideo();
     initModals();
+    initFaq();
   }
 
   if (document.readyState === 'loading') {
