@@ -13,3 +13,8 @@ _shot-hero.mjs
 
 # Artefacto interno de Relume: no debe publicarse ni indexarse.
 style-guide-*.html
+
+# Proyecto fuente del business case de One Stop (TanStack Start, se compila y se
+# despliega aparte). Vive dentro de esta carpeta pero NO es parte del sitio
+# estatico: sin esta linea el deploy publicaria el codigo fuente entero.
+case-assets/One Stop Construction
